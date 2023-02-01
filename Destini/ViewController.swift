@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         // какую кнопку нажал пользователь, получаю title
-        let userAnswer = sender.currentTitle
+        let userAnswer = sender.currentTitle!
         print(userAnswer)
         
         // получаю ответ пользователя
@@ -89,6 +89,9 @@ class ViewController: UIViewController {
         } else {
             questionNumber = 0
         }
+        
+        choice1Button.setTitle("\(questions[questionNumber].choice1)", for: .normal)
+        choice2Button.setTitle("\(questions[questionNumber].choice2)", for: .normal)
     
         updateUI()
     }

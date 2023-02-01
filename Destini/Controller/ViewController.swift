@@ -40,8 +40,6 @@ class ViewController: UIViewController {
         }
         
         destiniBrain.nextText()
-        
-        destiniBrain.changeButtonTitle(choice1Button, choice2Button)
     
         updateUI()
     }
@@ -49,6 +47,9 @@ class ViewController: UIViewController {
     func updateUI() {
         // обновляю данные в label
         storyTextLabel.text = destiniBrain.getQuestionText()
+        
+        choice1Button.setTitle(destiniBrain.getChoice1(), for: .normal)
+        choice2Button.setTitle(destiniBrain.getChoice2(), for: .normal)
     }
 }
 

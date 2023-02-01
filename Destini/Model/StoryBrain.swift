@@ -1,20 +1,14 @@
 //
-//  ViewController.swift
+//  StoryBrain.swift
 //  Destini
 //
-//  Created by Ildar Garifullin on 31/01/2023.
+//  Created by Ildar Garifullin on 01/02/2023.
 //
 
+import Foundation
 import UIKit
 
-class ViewController: UIViewController {
-
-    @IBOutlet weak var storyTextLabel: UILabel!
-    
-    @IBOutlet weak var choice1Button: UIButton!
-    
-    @IBOutlet weak var choice2Button: UIButton!
-    
+struct StoryBrain {
     let questions = [
         Story(
             t: "Your car has blown a tire on a winding road in the middle of nowhere with no cell phone reception. You decide to hitchhike. A rusty pickup truck rumbles to a stop next to you. A man with a wide brimmed hat with soulless eyes opens the passenger door for you and asks: 'Need a ride, boy?'.",
@@ -62,43 +56,30 @@ class ViewController: UIViewController {
     
     var questionNumber = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        updateUI()
-    }
-
-    @IBAction func answerButtonPressed(_ sender: UIButton) {
-        // какую кнопку нажал пользователь, получаю title
-        let userAnswer = sender.currentTitle!
-        print(userAnswer)
-        
+    func checkAnswer(_ userAnswer: String) -> Bool {
         // получаю ответ пользователя
-        let actualAnswer = questions[questionNumber].choice1
-        
-        // сравниваю ответ пользователя с ответом в массиве
-        if userAnswer == actualAnswer {
-            print("Right!")
+        if userAnswer == questions[questionNumber].choice1 {
+            return true
         } else {
-            print("Wrong!")
+            return false
         }
-        
+    }
+    
+    func getQuestionText() -> String {
+       return questions[questionNumber].title
+    }
+    
+    func changeButtonTitle(_ choice1Button: UIButton, _ choice2Button: UIButton) {
+        choice1Button.setTitle("\(questions[questionNumber].choice1)", for: .normal)
+        choice2Button.setTitle("\(questions[questionNumber].choice2)", for: .normal)
+    }
+    
+    mutating func nextText() {
         // проверка на количество элементов в массиве
         if questionNumber + 1 < questions.count {
             questionNumber = questionNumber + 1
         } else {
             questionNumber = 0
         }
-        
-        choice1Button.setTitle("\(questions[questionNumber].choice1)", for: .normal)
-        choice2Button.setTitle("\(questions[questionNumber].choice2)", for: .normal)
-    
-        updateUI()
-    }
-    
-    func updateUI() {
-        // обновляю данные в label
-        storyTextLabel.text = questions[questionNumber].title
     }
 }
-

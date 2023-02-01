@@ -28,18 +28,8 @@ class ViewController: UIViewController {
         guard let userAnswer = sender.currentTitle else {
             return
         }
-        print(userAnswer)
         
-        let userGoItRight = destiniBrain.checkAnswer(userAnswer)
-        
-        // сравниваю ответ пользователя с ответом в массиве
-        if userGoItRight {
-            print("Right!")
-        } else {
-            print("Wrong!")
-        }
-        
-        destiniBrain.nextText()
+        destiniBrain.nextText(userAnswer)
     
         updateUI()
     }

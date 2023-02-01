@@ -55,15 +55,6 @@ struct StoryBrain {
     
     var questionNumber = 0
     
-    func checkAnswer(_ userAnswer: String) -> Bool {
-        // получаю ответ пользователя
-        if userAnswer == questions[questionNumber].choice1 {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     func getQuestionText() -> String {
        return questions[questionNumber].title
     }
@@ -76,12 +67,13 @@ struct StoryBrain {
         return questions[questionNumber].choice2
     }
     
-    mutating func nextText() {
-        // проверка на количество элементов в массиве
-        if questionNumber + 1 < questions.count {
-            questionNumber = questionNumber + 1
-        } else {
-            questionNumber = 0
+    mutating func nextText(_ userAnswer: String) {
+        let currentStory = questions[questionNumber]
+        
+        if userAnswer == currentStory.choice1 {
+            questionNumber = currentStory.choice1Destination
+        } else if userAnswer == currentStory.choice2 {
+            questionNumber = currentStory.choice2Destination
         }
     }
 }
